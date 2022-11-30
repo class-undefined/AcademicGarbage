@@ -1,6 +1,6 @@
-from app import app
-from db import get_db, register_db
-from controller.export import user_blue
+from .app import app
+from .db import register_db
+from .controller.export import user_blue
 register_db(app)
 
 

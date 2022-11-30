@@ -1,14 +1,14 @@
-from flask_pymongo import PyMongo
 from flask import Flask
-from .config import *
-__db = PyMongo()
+from flask_mongoengine import MongoEngine
+mongodb = MongoEngine()
 
 
 def register_db(app: "Flask"):
     """注册db"""
-    __db.init_app(app, uri=URI)
+    print(app.config)
+    mongodb.init_app(app, app.config)
 
 
-def get_db() -> PyMongo:
-    """获取db"""
-    return __db
+# def get_db() -> PyMongo:
+#     """获取db"""
+#     return __db
