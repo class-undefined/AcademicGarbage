@@ -1,6 +1,7 @@
 import random
 import string
 import hashlib
+import inspect
 from itsdangerous import TimedJSONWebSignatureSerializer
 from typing import Any, Union
 from server.app import app
@@ -29,4 +30,18 @@ def encode_data(data: Any) -> Union[str, bytes]:
 
 def decode_data(s: Union[str, bytes]) -> Any:
     """数据解码"""
-    return serializer.loads(s)
+    try:
+        return serializer.loads(s)
+    except:
+        return None
+
+
+def debug(*args, back=1):
+    frame = inspect.currentframe()
+    while back:
+        frame = frame.f_back
+        back -= 1
+    co = frame.f_code
+    filename = co.co_filename
+    prefix = f"{filename}:{frame.f_lineno} "
+    print(f"{prefix:40}", *args, flush=True)
