@@ -8,7 +8,7 @@ register_db(app)
 
 @app.route("/")
 def hello():
-    test_user()
+    # test_user()
     return "done"
 
 

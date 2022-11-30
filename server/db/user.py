@@ -19,7 +19,6 @@ class User(mongodb.Document):
     def encode_password(password: str, salt: str) -> str:
         """ 对密码进行md5编码 """
         magic_char = "token"
-        print(password, salt)
         s = password + magic_char + salt
         return encode_md5_from_string(s)
 
