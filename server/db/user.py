@@ -1,5 +1,6 @@
 from typing import List, Tuple
-from . import mongodb
+from server.db import mongodb
+from server.db.photo import Photo
 from server.common.package import random_string, encode_md5_from_string
 # from mongoengine import StringField
 
@@ -11,6 +12,8 @@ class User(mongodb.Document):
     password = mongodb.StringField(max_length=64)
     # 盐
     salt = mongodb.StringField(required=False)
+    # 图片集
+    photos = mongodb.ListField(mongodb.EmbeddedDocumentField(Photo))
 
     @staticmethod
     def encode_password(password: str, salt: str) -> str:
@@ -35,5 +38,14 @@ class User(mongodb.Document):
         user = User(username=username, password=password)
         user.salt = random_string(8)
         user.password = User.encode_password(user.password, user.salt)
+        user.photos = []
         user.save()
         return user
+
+
+def test_user():
+    from server.db.user import User
+    from server.db.photo import Photo
+    user = User.register("test", "test")
+    user.photos.append(Photo(original_url="https://baidu.com"))
+    user.save()
