@@ -1,8 +1,7 @@
 from typing import List, Tuple, Dict
 from server.db import mongodb
 from server.db.photo import Photo
-from server.common.package import random_string, encode_md5_from_string
-# from mongoengine import StringField
+from server.common.package import encode_data, random_string, encode_md5_from_string
 
 
 class User(mongodb.Document):
@@ -41,6 +40,10 @@ class User(mongodb.Document):
         user.save()
         return user
 
+    def generate_token(self) -> Tuple[None, str]:
+        token = {"id": str(self.id)}
+        return encode_data(token)
+
     def to_dict(self) -> Dict:
         return {
             "id": self.id,
@@ -48,6 +51,13 @@ class User(mongodb.Document):
             "password": self.password,
             "salt": self.salt,
             "photos": self.photos
+        }
+
+    def to_vo(self) -> Dict:
+        """转换为vo数据, 避免泄漏加密信息"""
+        return {
+            "username": self.username,
+            "photos": self.photos,
         }
 
     def __str__(self) -> str:

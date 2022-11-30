@@ -23,8 +23,11 @@ def encode_md5_from_string(s: str) -> str:
     return hashlib.md5(s.encode("utf8")).hexdigest()
 
 
-def encode_data(data: Any) -> Union[str, bytes]:
+def encode_data(data: Any) -> str:
     """数据编码"""
+    data = serializer.dumps(data)
+    if isinstance(data, bytes):
+        return data.decode("utf8")
     return serializer.dumps(data)
 
 
