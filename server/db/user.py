@@ -1,4 +1,4 @@
-from typing import List, Tuple
+from typing import List, Tuple, Dict
 from server.db import mongodb
 from server.db.photo import Photo
 from server.common.package import random_string, encode_md5_from_string
@@ -40,6 +40,18 @@ class User(mongodb.Document):
         user.photos = []
         user.save()
         return user
+
+    def to_dict(self) -> Dict:
+        return {
+            "id": self.id,
+            "username": self.username,
+            "password": self.password,
+            "salt": self.salt,
+            "photos": self.photos
+        }
+
+    def __str__(self) -> str:
+        return str(self.to_dict())
 
 
 def test_user():

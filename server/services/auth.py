@@ -1,20 +1,24 @@
-from itsdangerous import URLSafeSerializer
-from server.common.package import random_string
-from typing import Any, Union
-from server.app import app
-GLOBAL_SALT = app.config.get("AUTO_SALT")  # 随机盐
-GLOBAL_SECRET_KEY = app.config.get("AUTO_SECRET_KEY")
-serializer = URLSafeSerializer(GLOBAL_SECRET_KEY, salt=GLOBAL_SALT)
+import functools
+from flask import request
+from server.common.package import decode_data, encode_data
+from server.services.parsers import user_parser
 
 
-def encode_data(data: Any) -> Union[str, bytes]:
-    """数据编码"""
-    return serializer.dumps(data)
+def auth_guard(token_parser=user_parser):
+    """ 通用验证守卫 """
+    def handle(route_func):
+        @functools.wraps(route_func)
+        def wrapper(*args, **kwargs):
+            data = token_parser(dict(request.headers))
+            return route_func(*args, data=data, **kwargs)
+        return wrapper
+    return handle
 
 
-def decode_data(s: Union[str, bytes]) -> Any:
-    """数据解码"""
-    return serializer.loads(s)
+def user_auth_guard(route_func):
+    """用户验证守卫, 会读取header的Token字段, 若存在数据会尝试解析, 若成功登录则在路由函数参数中拥有data字段, 即为User"""
+    handler = auth_guard(token_parser=user_parser)
+    return handler(route_func)
 
 
 def test_encode_decode():
