@@ -2,8 +2,8 @@ from server.common.response import Response
 
 
 class RequestError(Exception):  # 请求异常
-    def __init__(self, code=20001, message="请求错误", data=None):
-        self.response = Response(code=code, message=message, data=data)
+    def __init__(self, message="请求错误"):
+        self.response = Response(code=20001, message=message, data=None)
 
     @staticmethod
     def from_response(response: Response) -> "RequestError":
