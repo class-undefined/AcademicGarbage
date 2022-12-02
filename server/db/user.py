@@ -35,7 +35,7 @@ class User(mongodb.Document):
     @staticmethod
     def register(username: str, password: str) -> "User":
         """ 注册用户 """
-        if not isinstance(username, str) or len(username) < 8 or isinstance(password, str) or len(password) < 8:
+        if not isinstance(username, str) or len(username) < 8 or not isinstance(password, str) or len(password) < 8:
             raise RequestError(Response.error(message="账户密码不能为空且均不可小于8位."))
         user = User(username=username, password=password)
         user.salt = random_string(8)
