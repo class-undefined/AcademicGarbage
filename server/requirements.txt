@@ -6,3 +6,7 @@ flask_mongoengine
 datetime
 itsdangerous
 inspect
+pycryptodome
+requests
+oss2
+yaml
