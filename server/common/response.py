@@ -8,17 +8,21 @@ class Response():
     def __init__(self, data: Dict = None, message: Union[str, None] = None, code: int = 0):
         self.__response = {"data": data, "message": message, "code": code}
 
-    def __update(self, data: Dict = None, message: Union[str, None] = None, code: int = 0):
+    def diy(self, data: Dict = None, message: Union[str, None] = None, code: int = 0) -> "Response":
+        """自定义Response"""
         self.__response = {"data": data, "message": message, "code": code}
+        return self
 
     def ok(self, data: Dict = None, message: Union[str, None] = "操作成功"):
         """操作成功"""
-        self.__update(data, message, 20000)
-        return make_response(jsonify(self.__response))
+        return self.diy(data, message, 20000).to_response()
 
     def error(self, data: Dict = None, message: Union[str, None] = "操作失败"):
         """操作失败"""
-        self.__update(data, message, 20001)
+        return self.diy(data, message, 20001).to_response()
+
+    def to_response(self):
+        """转换为ResponseBody"""
         return make_response(jsonify(self.__response))
 
     def to_dict(self) -> Dict:
