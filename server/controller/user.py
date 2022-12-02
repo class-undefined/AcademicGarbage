@@ -63,3 +63,15 @@ def history(data: Union[User, None]):
     for photo in data.photos:
         photos.append(photo.to_dict())
     return Response.ok(data=photos)
+
+
+@user_blue.route("/add_photo", methods=["POST"])
+@user_auth_guard
+@interceptor()
+def add_photo(data: Union[User, None]):
+    user = data
+    body = request.get_json()
+    if user is None:
+        return Response.relogin()
+    user.add_photo(body["url"])
+    return Response.ok()

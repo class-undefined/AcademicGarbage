@@ -16,7 +16,7 @@ class User(mongodb.Document):
     salt: str = mongodb.StringField(required=False)
     # 图片集
     photos: List[Photo] = mongodb.ListField(
-        mongodb.EmbeddedDocumentField(Photo))
+        mongodb.ReferenceField(Photo))
 
     @staticmethod
     def encode_password(password: str, salt: str) -> str:
@@ -46,8 +46,20 @@ class User(mongodb.Document):
         user.save()
         return user
 
+    def get_id(self) -> str:
+        return str(self.id)
+
+    def add_photo(self, url: str):
+        """增加图片"""
+        if not isinstance(url, str):
+            raise RequestError("增加图片数据异常")
+        photo = Photo(original_url=url, userid=self.get_id())
+        photo.save()
+        self.photos.append(photo)
+        self.update(push__photos=photo)
+
     def generate_token(self) -> Tuple[None, str]:
-        token = {"id": str(self.id)}
+        token = {"id": self.get_id()}
         return encode_data(token)
 
     def to_dict(self) -> Dict:
