@@ -52,7 +52,7 @@ def login(data: Union[User, None]):
     return Response.relogin().to_response()
 
 
-@user_blue.route("/history")
+@user_blue.route("/history", methods=["GET"])
 @user_auth_guard
 @interceptor()
 def history(data: Union[User, None]):
@@ -62,4 +62,4 @@ def history(data: Union[User, None]):
     photos = []
     for photo in data.photos:
         photos.append(photo.to_dict())
-    return Response.ok(data=photos)
+    return Response.ok(data=photos).to_response()
