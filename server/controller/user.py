@@ -54,5 +54,12 @@ def login(data: Union[User, None]):
 
 @user_blue.route("/history")
 @user_auth_guard
+@interceptor()
 def history(data: Union[User, None]):
-    return "history"
+    if data is None:
+        return Response.relogin().to_response()
+    # 暂不考虑分页
+    photos = []
+    for photo in data.photos:
+        photos.append(photo.to_dict())
+    return Response.ok(data=photos)

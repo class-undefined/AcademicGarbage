@@ -8,13 +8,15 @@ from server.common.package import encode_data, random_string, encode_md5_from_st
 
 class User(mongodb.Document):
     # 账户
-    username = mongodb.StringField(unique=True, min_length=8, max_length=20)
+    username: str = mongodb.StringField(
+        unique=True, min_length=8, max_length=20)
     # 密码
-    password = mongodb.StringField(max_length=64)
+    password: str = mongodb.StringField(max_length=64)
     # 盐
-    salt = mongodb.StringField(required=False)
+    salt: str = mongodb.StringField(required=False)
     # 图片集
-    photos = mongodb.ListField(mongodb.EmbeddedDocumentField(Photo))
+    photos: List[Photo] = mongodb.ListField(
+        mongodb.EmbeddedDocumentField(Photo))
 
     @staticmethod
     def encode_password(password: str, salt: str) -> str:
