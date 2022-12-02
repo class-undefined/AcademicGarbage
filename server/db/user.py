@@ -97,5 +97,6 @@ def test_user():
     from server.db.user import User
     from server.db.photo import Photo
     user = User.register("test", "test")
-    user.photos.append(Photo(original_url="https://baidu.com"))
+    user.photos.append(
+        Photo(original_url="https://baidu.com", userid=user.get_id()))
     user.save()
