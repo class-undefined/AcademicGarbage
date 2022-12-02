@@ -10,6 +10,13 @@ user_blue = Blueprint("user", __name__, url_prefix="/user")
 
 @user_blue.route("/register")
 def register():
+    body = request.get_json()
+    if "username" not in body or "password" not in body:
+        return Response().error(message="缺少账户或密码!")
+    response_data = {
+        "username": None,
+        "password": None
+    }
     return "register"
 
 
@@ -23,7 +30,7 @@ def login(data: Union[User, None]):
     }
     # body为空且token验证失败, 需要重新登录
     if body is None and data is None:
-        return Response.relogin()
+        return Response.relogin().to_response()
     # 用登录参数优先验证登录参数
     if body is not None:
         if "username" not in body or "password" not in body:
@@ -42,7 +49,7 @@ def login(data: Union[User, None]):
         response_data["user"] = data.to_vo()
         return Response().ok(data=response_data, message="登录成功")
     # 否则重新登录
-    return Response.relogin()
+    return Response.relogin().to_response()
 
 
 @user_blue.route("/history")

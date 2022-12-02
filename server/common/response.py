@@ -8,18 +8,15 @@ class Response():
     def __init__(self, data: Dict = None, message: Union[str, None] = None, code: int = 0):
         self.__response = {"data": data, "message": message, "code": code}
 
-    def diy(self, data: Dict = None, message: Union[str, None] = None, code: int = 0) -> "Response":
-        """自定义Response"""
-        self.__response = {"data": data, "message": message, "code": code}
-        return self
-
-    def ok(self, data: Dict = None, message: Union[str, None] = "操作成功"):
+    @staticmethod
+    def ok(data: Dict = None, message: Union[str, None] = "操作成功") -> "Response":
         """操作成功"""
-        return self.diy(data, message, 20000).to_response()
+        return Response(data=data, message=message, code=20000)
 
-    def error(self, data: Dict = None, message: Union[str, None] = "操作失败"):
+    @staticmethod
+    def error(data: Dict = None, message: Union[str, None] = "操作失败") -> "Response":
         """操作失败"""
-        return self.diy(data, message, 20001).to_response()
+        return Response(data=data, message=message, code=20001)
 
     def to_response(self):
         """转换为ResponseBody"""
@@ -29,7 +26,6 @@ class Response():
         return self.__response
 
     @staticmethod
-    def relogin():
+    def relogin() -> "Response":
         """重新登录"""
-        response = Response(None, "登录失败, 请重新登录", 30001)
-        return make_response(jsonify(response.to_dict()))
+        return Response(None, "登录失败, 请重新登录", 30001)
