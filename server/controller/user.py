@@ -22,6 +22,7 @@ def register():
 
 @user_blue.route("/login", methods=["POST"])
 @user_auth_guard
+@interceptor()
 def login(data: Union[User, None]):
     body = request.get_json()
     response_data = {
