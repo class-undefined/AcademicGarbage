@@ -10,14 +10,14 @@ from server.services.interceptor import interceptor
 user_blue = Blueprint("user", __name__, url_prefix="/user")
 
 
-@user_blue.route("/register")
+@user_blue.route("/register", methods=["POST"])
 @interceptor()
 def register():
     body = request.get_json()
     if "username" not in body or "password" not in body:
         return Response().error(message="缺少账户或密码!")
-    User.register(**body)
-    return Response.ok(message="注册成功")
+    user = User.register(**body)
+    return Response.ok(message="注册成功", data=user.to_vo()).to_response()
 
 
 @user_blue.route("/login", methods=["POST"])
