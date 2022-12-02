@@ -39,12 +39,23 @@ class User(mongodb.Document):
         """ 注册用户 """
         if not isinstance(username, str) or len(username) < 8 or not isinstance(password, str) or len(password) < 8:
             raise RequestError(Response.error(message="账户密码不能为空且均不可小于8位."))
+        if User.is_exist_by_username(username):
+            raise RequestError(f"改用户名已被注册")
         user = User(username=username, password=password)
         user.salt = random_string(8)
         user.password = User.encode_password(user.password, user.salt)
         user.photos = []
         user.save()
         return user
+
+    @staticmethod
+    def is_exist_by_username(username: str) -> bool:
+        """用户名是否存在"""
+        users = User.objects(username=username)
+        size = len(users)
+        is_exist = size == 1
+        assert size <= 1, f"为何会有size: {size} 个 username: {username} 的用户?"
+        return is_exist
 
     def get_id(self) -> str:
         return str(self.id)
