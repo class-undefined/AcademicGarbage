@@ -1,4 +1,6 @@
 from typing import List, Tuple, Dict
+from server.common.error import RequestError
+from server.common.response import Response
 from server.db import mongodb
 from server.db.photo import Photo
 from server.common.package import encode_data, random_string, encode_md5_from_string
@@ -6,7 +8,7 @@ from server.common.package import encode_data, random_string, encode_md5_from_st
 
 class User(mongodb.Document):
     # 账户
-    username = mongodb.StringField(unique=True, max_length=20)
+    username = mongodb.StringField(unique=True, min_length=8, max_length=20)
     # 密码
     password = mongodb.StringField(max_length=64)
     # 盐
@@ -33,6 +35,8 @@ class User(mongodb.Document):
     @staticmethod
     def register(username: str, password: str) -> "User":
         """ 注册用户 """
+        if not isinstance(username, str) or len(username) < 8 or isinstance(password, str) or len(password) < 8:
+            raise RequestError(Response.error(message="账户密码不能为空且均不可小于8位."))
         user = User(username=username, password=password)
         user.salt = random_string(8)
         user.password = User.encode_password(user.password, user.salt)
