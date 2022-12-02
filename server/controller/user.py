@@ -42,12 +42,12 @@ def login(data: Union[User, None]):
         if is_login:
             response_data["user"] = user.to_vo()
             response_data["token"] = user.generate_token()
-            return Response().ok(data=response_data, message="登录成功")
+            return Response().ok(data=response_data, message="登录成功").to_response()
         raise RequestError("账户或密码错误")
     # token验证成功, 返回用户
     if data is not None:
         response_data["user"] = data.to_vo()
-        return Response().ok(data=response_data, message="登录成功")
+        return Response().ok(data=response_data, message="登录成功").to_response()
     # 否则重新登录
     return Response.relogin().to_response()
 
