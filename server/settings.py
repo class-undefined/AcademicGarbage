@@ -13,7 +13,7 @@ class EnvConfig(object):
     # server端口号
     PORT = 5001
     # 是否开启debug模块
-    DEBUG = True
+    DEBUG = False
     # oss配置文件路径
     OSS_CONFIG_YAML_PATH = "/Users/class-undefined/code/projects/AcademicGarbage/server/oss.yaml"
     # redis

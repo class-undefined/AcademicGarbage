@@ -1,13 +1,13 @@
 from flask_socketio import SocketIO
 from app import app
-from db import register_db
 from db.user import User, test_user
-from db.photo import Photo
 from controller.export import user_blue
-from websocket import register_socketio, socketio, gateway
+from common import get_socketio, get_mongodb
+from db.photo import Photo
+from websocket import gateway
 app.config['SECRET_KEY'] = 'secret!'
-register_db(app)
-register_socketio(app)
+get_socketio().init_app(app)
+get_mongodb().init_app(app)
 app.register_blueprint(user_blue)
 
 
@@ -18,4 +18,4 @@ def hello():
 
 
 if __name__ == "__main__":
-    socketio.run(app, host=app.config["HOST"], port=app.config["PORT"])
+    get_socketio().run(app, host=app.config["HOST"], port=app.config["PORT"])
