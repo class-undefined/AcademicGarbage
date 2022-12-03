@@ -1,4 +1,4 @@
-from server.common.response import Response
+from common.response import Response
 
 
 class RequestError(Exception):  # 请求异常

@@ -1,7 +1,7 @@
 from typing import Dict
-from server.common.package import debug
-from server.db.user import User
-from server.services.auth import decode_data
+from common.package import debug
+from db.user import User
+from services.auth import decode_data
 
 
 def user_parser(headers: Dict):

@@ -1,9 +1,9 @@
 import functools
 from flask import request
-from server.common.error import RequestError
-from server.common.package import decode_data, encode_data
-from server.common.response import Response
-from server.services.parsers import user_parser
+from common.error import RequestError
+from common.package import decode_data, encode_data
+from common.response import Response
+from services.parsers import user_parser
 
 
 def interceptor():

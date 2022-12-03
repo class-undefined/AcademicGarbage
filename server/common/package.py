@@ -4,7 +4,7 @@ import hashlib
 import inspect
 from itsdangerous import TimedJSONWebSignatureSerializer
 from typing import Any, Union
-from server.app import app
+from app import app
 
 GLOBAL_SALT = app.config.get("AUTO_SALT")  # 随机盐
 GLOBAL_SECRET_KEY = app.config.get("AUTO_SECRET_KEY")

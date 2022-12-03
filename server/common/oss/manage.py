@@ -1,4 +1,5 @@
 from typing import Any
+from app import app
 
 
 class OssManage():
@@ -15,7 +16,7 @@ class OssManage():
 
     def __read_oss_config(self):
         import yaml
-        config_path = "server/common/oss/config.yaml"
+        config_path = app.config["OSS_CONFIG_YAML_PATH"]
         stream = open(config_path, "rb")
         return yaml.load(stream, yaml.SafeLoader)
 

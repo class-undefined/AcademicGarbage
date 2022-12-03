@@ -10,3 +10,5 @@ pycryptodome
 requests
 oss2
 yaml
+flask_socketio
+gevent-websocket

@@ -1,5 +1,5 @@
-from server.db import mongodb
-from server.common.oss.manage import oss
+from db import mongodb
+from common.oss.manage import oss
 import datetime
 from typing import Dict, Tuple
 

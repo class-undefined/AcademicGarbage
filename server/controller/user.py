@@ -1,11 +1,11 @@
 from typing import Dict, Union
 from flask import Blueprint, request
-from server.common.error import RequestError
-from server.common.response import Response
-from server.db.user import User
-
-from server.services.auth import user_auth_guard
-from server.services.interceptor import interceptor
+from common.error import RequestError
+from common.response import Response
+from db.user import User
+from common.package import debug
+from services.auth import user_auth_guard
+from services.interceptor import interceptor
 
 user_blue = Blueprint("user", __name__, url_prefix="/user")
 

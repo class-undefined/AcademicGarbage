@@ -1,7 +1,7 @@
 import functools
 from flask import request
-from server.common.package import decode_data, encode_data
-from server.services.parsers import user_parser
+from common.package import decode_data, encode_data
+from services.parsers import user_parser
 
 
 def auth_guard(token_parser=user_parser):

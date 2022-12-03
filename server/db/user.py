@@ -1,9 +1,9 @@
 from typing import List, Tuple, Dict
-from server.common.error import RequestError
-from server.common.response import Response
-from server.db import mongodb
-from server.db.photo import Photo
-from server.common.package import encode_data, random_string, encode_md5_from_string
+from common.error import RequestError
+from common.response import Response
+from db import mongodb
+from db.photo import Photo
+from common.package import encode_data, random_string, encode_md5_from_string
 
 
 class User(mongodb.Document):
