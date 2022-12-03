@@ -1,9 +1,10 @@
-from typing import List, Tuple, Dict
+from typing import List, Tuple, Dict, Any
 from common.error import RequestError
 from common.response import Response
 from db import mongodb
 from db.photo import Photo
 from common.package import encode_data, random_string, encode_md5_from_string
+from common import get_socketio, get_cache
 
 
 class User(mongodb.Document):
@@ -96,6 +97,14 @@ class User(mongodb.Document):
             "username": self.username,
             "photos": self.photos,
         }
+
+    def send_msg(self, val: Any):
+        """发送socket消息"""
+        cache = get_cache()
+        sid = cache.pull(group="user", key=self.get_id())
+        if sid is None: # 如果没有sid, 说明已过期, 不进行发送
+            return
+        get_socketio().emit("message", val, room=sid)
 
     def __str__(self) -> str:
         return str(self.to_dict())
