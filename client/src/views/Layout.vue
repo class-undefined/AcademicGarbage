@@ -26,7 +26,9 @@ const tabHeight = computed(() => {
 </script>
 
 <template>
-    <div class="main" :style="{ height: `calc(100% - ${tabHeight}px)` }"><RouterView /></div>
+    <van-config-provider theme="dark">
+        <div class="main" :style="{ height: `calc(100% - ${tabHeight}px)` }"><RouterView /></div>
+    </van-config-provider>
     <div>
         <van-tabbar v-if="current.meta?.navbar" v-model="current.path">
             <van-tabbar-item v-for="tab in tabs" :key="tab.title" :icon="tab.icon">

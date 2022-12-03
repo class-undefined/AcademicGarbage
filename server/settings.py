@@ -9,7 +9,7 @@ class EnvConfig(object):
     # token时效
     AUTO_TOKEN_EXPIRES_IN = 60 * 60 * 24 * 7  # 7天过期
     # 主机监听地址
-    HOST = "127.0.0.1"
+    HOST = "0.0.0.0"
     # server端口号
     PORT = 5001
     # 是否开启debug模块

@@ -51,7 +51,7 @@ router.beforeEach((to, from, next) => {
                 .auth()
                 .then(() => next())
                 .catch(() => {
-                    router.push("/404")
+                    router.push("/login")
                 })
             return
         }
