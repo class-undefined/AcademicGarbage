@@ -8,3 +8,4 @@
 ✔ 添加图片接口 @started(22-12-02 23:26) @done(22-12-02 23:38) @lasted(12m37s)
 ✔ 用户名唯一性检测 @started(22-12-02 23:58) @done(22-12-03 00:05) @lasted(7m30s)
 ✔ oss管理操作 @started(22-12-03 00:15) @done(22-12-03 01:04) @lasted(49m22s)
+☐ websocket 通信
