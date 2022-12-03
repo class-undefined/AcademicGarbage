@@ -18,3 +18,4 @@ server:
 client:
     ✔ 项目结构搭建 @started(22-12-03 15:22) @done(22-12-03 15:41) @lasted(19m40s)
     ☐ 编写登录 @started(22-12-03 15:42)
+    ✔ 封装Request api @started(22-12-03 15:45) @done(22-12-03 15:58) @lasted(13m17s)
