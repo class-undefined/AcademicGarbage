@@ -13,3 +13,10 @@ export const login = (username: string, password: string) => {
         data: { username, password },
     }) as unknown as Promise<Response<LoginResult>>
 }
+
+export const auth = () => {
+    return service({
+        url: "/user/login",
+        method: "POST",
+    }) as unknown as Promise<Response<LoginResult>>
+}

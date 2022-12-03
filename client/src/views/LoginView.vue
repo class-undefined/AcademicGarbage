@@ -2,15 +2,22 @@
 import { useGlobalStore } from "@/store/global"
 import { ref } from "vue"
 import { useLoading } from "@utils/base"
+import { useRouter } from "vue-router"
 const username = ref("")
 const password = ref("")
 const [loading, setLoading] = useLoading()
+const router = useRouter()
 const onSubmit = () => {
     const global = useGlobalStore()
     setLoading(true)
-    global.login(username.value, password.value).finally(() => {
-        setLoading(false)
-    })
+    global
+        .login(username.value, password.value)
+        .then(() => {
+            router.push("/")
+        })
+        .finally(() => {
+            setLoading(false)
+        })
 }
 </script>
 

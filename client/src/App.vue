@@ -1,16 +1,11 @@
 <script setup lang="ts">
+import Layout from "./views/Layout.vue"
+
 //
 </script>
 
 <template>
-    <div class="main">
-        <RouterView />
-    </div>
+    <Layout />
 </template>
 
-<style scoped>
-.main {
-    height: 100%;
-    width: 100%;
-}
-</style>
+<style scoped></style>
