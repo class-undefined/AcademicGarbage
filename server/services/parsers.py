@@ -3,7 +3,6 @@ from common.package import debug
 from db.user import User
 from services.auth import decode_data
 
-
 def user_parser(headers: Dict):
     """ 解析user token信息, 若解析失败返回None """
     # assert isinstance(token_data, dict), "错误的token"

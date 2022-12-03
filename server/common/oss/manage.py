@@ -34,9 +34,7 @@ class OssManage():
         return f"{self.prefix}/{filename}"
 
 
-oss = OssManage()
-
-
 def test():
-    rst = oss.upload("foo.txt", "bar")
+    from common import get_oss
+    rst = get_oss().upload("foo.txt", "bar")
     assert rst == "https://bins-1.oss-cn-hangzhou.aliyuncs.com/foo.txt"

@@ -12,3 +12,5 @@ oss2
 yaml
 flask_socketio
 gevent-websocket
+redis[hiredis]
+re

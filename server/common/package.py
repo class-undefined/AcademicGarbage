@@ -2,6 +2,7 @@ import random
 import string
 import hashlib
 import inspect
+import re
 from itsdangerous import TimedJSONWebSignatureSerializer
 from typing import Any, Union
 from app import app
@@ -48,3 +49,12 @@ def debug(*args, back=1):
     filename = co.co_filename
     prefix = f"{filename}:{frame.f_lineno} "
     print(f"{prefix:40}", *args, flush=True)
+
+
+def get_variable_type(val: Any) -> str:
+    """获得变量类型字符串"""
+    regex = r"<class '(.*)'>"
+    typeof = str(type(val))
+    matches = re.findall(regex, typeof, re.MULTILINE)
+    assert len(matches) == 1, "不支持重写类型"
+    return matches[0]

@@ -1,7 +1,9 @@
 from db import mongodb
-from common.oss.manage import oss
+
 import datetime
 from typing import Dict, Tuple
+
+from common import get_oss
 
 
 class Photo(mongodb.Document):
@@ -41,5 +43,5 @@ class Photo(mongodb.Document):
     def from_stream(stream, userid: str, filename: str) -> "Photo":
         """从stream构建Photo实例, 自动上传至oss"""
         path = f"{userid}/{filename}"
-        original_url = oss.upload(path, stream)
+        original_url = get_oss().upload(path, stream)
         return Photo(original_url=original_url, userid=userid)
