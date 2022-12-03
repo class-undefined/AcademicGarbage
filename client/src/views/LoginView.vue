@@ -3,6 +3,7 @@ import { useGlobalStore } from "@/store/global"
 import { ref } from "vue"
 import { useLoading } from "@utils/base"
 import { useRouter } from "vue-router"
+import { showLoadingToast } from "vant"
 const username = ref("")
 const password = ref("")
 const [loading, setLoading] = useLoading()
@@ -10,6 +11,10 @@ const router = useRouter()
 const onSubmit = () => {
     const global = useGlobalStore()
     setLoading(true)
+    const toast = showLoadingToast({
+        message: "正在登录",
+        forbidClick: true,
+    })
     global
         .login(username.value, password.value)
         .then(() => {
@@ -17,6 +22,7 @@ const onSubmit = () => {
         })
         .finally(() => {
             setLoading(false)
+            toast.close()
         })
 }
 </script>

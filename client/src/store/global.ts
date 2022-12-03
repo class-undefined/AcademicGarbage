@@ -3,11 +3,11 @@ import { User } from "@/types/user"
 import { removeToken, setToken } from "@/utils/api/auth/auth"
 import { defineStore } from "pinia"
 import { useRouter } from "vue-router"
+import { showLoadingToast } from "vant"
 export const useGlobalStore = defineStore("global", {
     state: () => {
         return {
             user: null as null | User,
-            authLoading: false,
         }
     },
     actions: {
@@ -19,12 +19,15 @@ export const useGlobalStore = defineStore("global", {
         },
         /** token验证 */
         async auth() {
-            this.authLoading = true
+            const toast = showLoadingToast({
+                message: "获取登录信息",
+                forbidClick: true,
+            })
             return auth()
                 .then(({ data }) => {
                     this.user = new User(data.user)
                 })
-                .finally(() => (this.authLoading = false))
+                .finally(() => toast.close())
         },
         logout() {
             this.user = null
