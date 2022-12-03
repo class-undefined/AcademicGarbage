@@ -1,5 +1,5 @@
 export interface StatusObject {
-    CODE: StatusCode,
+    CODE: StatusCode
     DEFAULT_MESSAGE: string
 }
 export interface ResultCodeType {
@@ -13,14 +13,14 @@ export enum StatusCode {
     Example = 50001, // 用于示例演示
 }
 
-export interface Response {
-    code: number,
-    message: string | null,
-    data: any
+export interface Response<T> {
+    code: number
+    message: string | null
+    data: T
 }
 
 export const ResultMessage: ResultCodeType = {
-    SUCCESS: { CODE: StatusCode.SUCCESS, DEFAULT_MESSAGE: '操作成功~' },
-    ERROR: { CODE: StatusCode.ERROR, DEFAULT_MESSAGE: '处理失败...' },
-    INVALID: { CODE: StatusCode.INVALID, DEFAULT_MESSAGE: '登录状态已失效，请重新登录' }
+    SUCCESS: { CODE: StatusCode.SUCCESS, DEFAULT_MESSAGE: "操作成功~" },
+    ERROR: { CODE: StatusCode.ERROR, DEFAULT_MESSAGE: "处理失败..." },
+    INVALID: { CODE: StatusCode.INVALID, DEFAULT_MESSAGE: "登录状态已失效，请重新登录" },
 }
