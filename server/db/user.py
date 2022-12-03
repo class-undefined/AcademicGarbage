@@ -57,6 +57,14 @@ class User(mongodb.Document):
         assert size <= 1, f"为何会有size: {size} 个 username: {username} 的用户?"
         return is_exist
 
+    @staticmethod
+    def query_by_id(id: str) -> Tuple["User", None]:
+        """根据id查询用户"""
+        users = User.objects(id=id)
+        if users is None:
+            return None
+        return users[0]
+
     def get_id(self) -> str:
         return str(self.id)
 

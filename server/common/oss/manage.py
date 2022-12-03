@@ -1,10 +1,9 @@
 from typing import Any
-import oss2
-import yaml
 
 
 class OssManage():
     def __init__(self):
+        import oss2
         config = self.__read_oss_config()
         access_key_id = config["access_key_id"]
         access_key_secret = config["access_key_secret"]
@@ -15,6 +14,7 @@ class OssManage():
         self.prefix = f"https://{bucket_name}.{endpoint}"
 
     def __read_oss_config(self):
+        import yaml
         config_path = "server/common/oss/config.yaml"
         stream = open(config_path, "rb")
         return yaml.load(stream, yaml.SafeLoader)
@@ -33,7 +33,9 @@ class OssManage():
         return f"{self.prefix}/{filename}"
 
 
+oss = OssManage()
+
+
 def test():
-    oss = OssManage()
     rst = oss.upload("foo.txt", "bar")
     assert rst == "https://bins-1.oss-cn-hangzhou.aliyuncs.com/foo.txt"

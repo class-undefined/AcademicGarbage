@@ -1,6 +1,7 @@
 from server.db import mongodb
+from server.common.oss.manage import oss
 import datetime
-from typing import Dict
+from typing import Dict, Tuple
 
 
 class Photo(mongodb.Document):
@@ -28,3 +29,17 @@ class Photo(mongodb.Document):
 
     def __str__(self) -> str:
         return str(self.to_dict())
+
+    @staticmethod
+    def query_by_id(id: str) -> Tuple["Photo", None]:
+        photos = Photo.objects(id=id)
+        if photos is None:
+            return None
+        return photos[0]
+
+    @staticmethod
+    def from_stream(stream, userid: str, filename: str) -> "Photo":
+        """从stream构建Photo实例, 自动上传至oss"""
+        path = f"{userid}/{filename}"
+        original_url = oss.upload(path, stream)
+        return Photo(original_url=original_url, userid=userid)
