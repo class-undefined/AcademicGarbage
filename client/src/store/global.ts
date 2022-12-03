@@ -1,6 +1,6 @@
 import { login } from "@/api/user"
 import { User } from "@/types/user"
-import { removeToken } from "@/utils/api/auth/auth"
+import { removeToken, setToken } from "@/utils/api/auth/auth"
 import { defineStore } from "pinia"
 import { useRouter } from "vue-router"
 export const useGlobalStore = defineStore("global", {
@@ -10,9 +10,10 @@ export const useGlobalStore = defineStore("global", {
         }
     },
     actions: {
-        login(username: string, password: string) {
-            login(username, password).then(({ data }) => {
+        async login(username: string, password: string) {
+            return login(username, password).then(({ data }) => {
                 this.user = new User(data.user)
+                setToken(data.token)
             })
         },
         logout() {
