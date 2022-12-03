@@ -16,9 +16,7 @@ const tabs = routes
 const current = ref(router.currentRoute.value)
 watch(
     () => router.currentRoute.value,
-    to => {
-        current.value = to
-    },
+    to => (current.value = to),
     { immediate: true, deep: true }
 )
 const tabHeight = computed(() => {
