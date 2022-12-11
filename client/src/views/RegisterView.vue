@@ -3,31 +3,46 @@ import { useGlobalStore } from "@/store/global"
 import { ref } from "vue"
 import { useLoading } from "@utils/base"
 import { useRouter } from "vue-router"
-import { showLoadingToast } from "vant"
+import { showFailToast, showLoadingToast } from "vant"
 const username = ref("")
 const password = ref("")
+const passwordCheckd = ref("")
 const [loading, setLoading] = useLoading()
 const router = useRouter()
 const onSubmit = () => {
+    username.value = username.value.trim()
+    password.value = password.value.trim()
+    passwordCheckd.value = passwordCheckd.value.trim()
+    if (username.value.length < 8) {
+        showFailToast("账号长度不得小于8位")
+        return 
+    }
+    if (password.value.length < 8) {
+        showFailToast("密码长度不得小于8位")
+        return 
+    }
+    if (password.value !== passwordCheckd.value) {
+        showFailToast("两次输入密码不一致")
+        return 
+    }
     const global = useGlobalStore()
     setLoading(true)
     const toast = showLoadingToast({
-        message: "正在登录",
+        message: "正在注册",
         forbidClick: true,
     })
     global
-        .login(username.value, password.value)
+        .register(username.value, password.value)
         .then(() => {
-            router.push("/")
+            router.push("/login")
         })
         .finally(() => {
             setLoading(false)
             toast.close()
         })
 }
-const toRegister = () => {
-    router.push("/register")
-}
+
+
 </script>
 
 <template>
@@ -49,13 +64,18 @@ const toRegister = () => {
                     placeholder="密码"
                     :rules="[{ required: true, message: '请填写密码' }]"
                 />
+                <van-field
+                    v-model="passwordCheckd"
+                    type="password"
+                    name="再次输入密码"
+                    label="再次输入密码"
+                    placeholder="再次输入密码"
+                    :rules="[{ required: true, message: '请再次输入密码' }]"
+                />
             </van-cell-group>
-            <div style="text-align: right;margin: 16px;">
-                <span class="register-btn" @click="toRegister">注册账号</span>
-            </div>
             <div style="margin: 16px">
                 <van-button round block :loading="loading" type="primary" native-type="submit">
-                    登录
+                    注册
                 </van-button>
             </div>
         </van-form>

@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router"
 import HomeView from "@/views/HomeView.vue"
+import RegisterView from "@/views/RegisterView.vue"
 import LoginView from "@/views/LoginView.vue"
 import { useGlobalStore } from "@/store/global"
 const routes: Array<RouteRecordRaw> = [
@@ -32,6 +33,16 @@ const routes: Array<RouteRecordRaw> = [
         meta: {
             navbar: false,
             title: "登录",
+            auth: false,
+        },
+    },
+    {
+        path: "/register",
+        name: "register",
+        component: RegisterView,
+        meta: {
+            navbar: false,
+            title: "注册",
             auth: false,
         },
     },

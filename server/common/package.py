@@ -10,6 +10,7 @@ import time
 
 GLOBAL_SALT = app.config.get("AUTO_SALT")  # 随机盐
 GLOBAL_SECRET_KEY = app.config.get("AUTO_SECRET_KEY")
+AUTO_TOKEN_EXPIRES_IN = app.config.get("AUTO_TOKEN_EXPIRES_IN") # token 过期时间
 STRING_SEED = string.ascii_letters + string.digits
 
 
@@ -23,7 +24,7 @@ def encode_md5_from_string(s: str) -> str:
     return hashlib.md5(s.encode("utf8")).hexdigest()
 
 
-def encode_data(data: dict, exp_seconds: int) -> str:
+def encode_data(data: dict, exp_seconds: int=AUTO_TOKEN_EXPIRES_IN) -> str:
     """数据编码"""
     # 签名算法
     header = {'alg': 'HS256', "typ": "JWT"}
@@ -38,7 +39,7 @@ def encode_data(data: dict, exp_seconds: int) -> str:
 
 def decode_data(s: str) -> dict:
     """数据解码"""
-    _, payload = jwt.decode(s, GLOBAL_SECRET_KEY)
+    payload = jwt.decode(s, GLOBAL_SECRET_KEY)
     if "exp" in payload:
         exp = payload["exp"]
         if time.time() > exp:

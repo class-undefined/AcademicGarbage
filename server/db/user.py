@@ -43,7 +43,7 @@ class User(mongodb.Document):
         if not isinstance(username, str) or len(username) < 8 or not isinstance(password, str) or len(password) < 8:
             raise RequestError(Response.error(message="账户密码不能为空且均不可小于8位."))
         if User.is_exist_by_username(username):
-            raise RequestError(f"改用户名已被注册")
+            raise RequestError(f"该用户名已被注册")
         user = User(username=username, password=password)
         user.salt = random_string(8)
         user.password = User.encode_password(user.password, user.salt)

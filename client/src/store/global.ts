@@ -1,9 +1,9 @@
-import { login, auth } from "@/api/user"
+import { login, auth, register } from "@/api/user"
 import { User } from "@/types/user"
 import { removeToken, setToken } from "@/utils/api/auth/auth"
 import { defineStore } from "pinia"
 import { useRouter } from "vue-router"
-import { showLoadingToast } from "vant"
+import { showFailToast, showLoadingToast } from "vant"
 export const useGlobalStore = defineStore("global", {
     state: () => {
         return {
@@ -16,6 +16,19 @@ export const useGlobalStore = defineStore("global", {
                 this.user = new User(data.user)
                 setToken(data.token)
             })
+        },
+        async register(username: string, password: string) {
+            if (username.trim().length === 0 || password.trim().length === 0) {
+                showFailToast({
+                    message: "账号或密码不可为空",
+                    duration: 3000
+                })
+            }
+            return register(username, password).then(({data}) => {
+                this.user = new User(data.user)
+                setToken(data.token)
+            })
+
         },
         /** token验证 */
         async auth() {

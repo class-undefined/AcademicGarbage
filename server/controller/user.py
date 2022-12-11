@@ -33,9 +33,7 @@ def login(data: Union[User, None]):
     if body is None and data is None:
         return Response.relogin()
     # 用登录参数优先验证登录参数
-    if body is not None:
-        if "username" not in body or "password" not in body:
-            return Response().error(message="账户或密码错误!")
+    if "username" in body and "password" in body:
         username = body["username"]
         password = body["password"]
         is_login, user = User.login(username=username, password=password)
@@ -45,7 +43,7 @@ def login(data: Union[User, None]):
             return Response().ok(data=response_data, message="登录成功")
         raise RequestError("账户或密码错误")
     # token验证成功, 返回用户
-    if data is not None:
+    if "auth" in body and data is not None:
         response_data["user"] = data.to_vo()
         return Response().ok(data=response_data, message="登录成功")
     # 否则重新登录
