@@ -4,6 +4,7 @@ from common.error import RequestError
 from common.response import Response
 from db.user import User
 from common.package import debug
+from common import get_oss
 from services.auth import user_auth_guard
 from services.interceptor import interceptor
 
@@ -68,8 +69,12 @@ def history(data: Union[User, None]):
 @interceptor()
 def add_photo(data: Union[User, None]):
     user = data
-    body = request.get_json()
-    if user is None:
-        return Response.relogin()
-    user.add_photo(body["url"])
+    if "image" not in request.files:
+        return Response.error("请选择要上传的图片！")
+    image = request.files["images"]
+    if image.filename == "":
+        return Response.error("请选择要上传的图片！")
+    filename = user.get_id() + "/" + image.filename
+    url = get_oss().upload(filename=filename, data=image.stream)
+    user.add_photo(url=url)
     return Response.ok()

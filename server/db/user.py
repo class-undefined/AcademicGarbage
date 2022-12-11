@@ -4,7 +4,7 @@ from common.response import Response
 from db import mongodb
 from db.photo import Photo
 from common.package import encode_data, random_string, encode_md5_from_string
-from common import get_socketio, get_cache
+from common import get_socketio, get_cache, debug
 
 
 class User(mongodb.Document):
@@ -76,7 +76,11 @@ class User(mongodb.Document):
         if not isinstance(url, str):
             raise RequestError("增加图片数据异常")
         photo = Photo(original_url=url, userid=self.get_id())
-        photo.save()
+        try:
+            photo.save()
+        except Exception as e:
+            debug(e)
+            raise RequestError("保存图片失败")
         self.photos.append(photo)
         self.update(push__photos=photo)
 

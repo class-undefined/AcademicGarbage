@@ -5,16 +5,16 @@ from flask import make_response, jsonify
 class Response():
     """ Http Response """
 
-    def __init__(self, data: Dict = None, message: Union[str, None] = None, code: int = 0):
+    def __init__(self, message: Union[str, None] = None, data: Dict = None,  code: int = 0):
         self.__response = {"data": data, "message": message, "code": code}
 
     @staticmethod
-    def ok(data: Dict = None, message: Union[str, None] = "操作成功") -> "Response":
+    def ok(message: Union[str, None] = "操作成功", data: Dict = None, ) -> "Response":
         """操作成功"""
         return Response(data=data, message=message, code=20000)
 
     @staticmethod
-    def error(data: Dict = None, message: Union[str, None] = "操作失败") -> "Response":
+    def error(message: Union[str, None] = "操作失败", data: Dict = None, ) -> "Response":
         """操作失败"""
         return Response(data=data, message=message, code=20001)
 

@@ -29,3 +29,11 @@ export const auth = () => {
         data: {auth: true}
     }) as unknown as Promise<Response<LoginResult>>
 }
+
+export const addPhoto = () => {
+    return service({
+        url: "/user/add_photo",
+        method: "POST",
+        data: {auth: true}
+    }) as unknown as Promise<Response<LoginResult>>
+}
