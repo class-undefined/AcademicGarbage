@@ -3,15 +3,14 @@ import string
 import hashlib
 import inspect
 import re
-from itsdangerous import TimedJSONWebSignatureSerializer
 from typing import Any, Union
 from app import app
+from authlib.jose import jwt
+import time
 
 GLOBAL_SALT = app.config.get("AUTO_SALT")  # 随机盐
 GLOBAL_SECRET_KEY = app.config.get("AUTO_SECRET_KEY")
 STRING_SEED = string.ascii_letters + string.digits
-serializer = TimedJSONWebSignatureSerializer(
-    GLOBAL_SECRET_KEY, salt=GLOBAL_SALT)
 
 
 def random_string(size: int) -> str:
@@ -24,20 +23,27 @@ def encode_md5_from_string(s: str) -> str:
     return hashlib.md5(s.encode("utf8")).hexdigest()
 
 
-def encode_data(data: Any) -> str:
+def encode_data(data: dict, exp_seconds: int) -> str:
     """数据编码"""
-    data = serializer.dumps(data)
-    if isinstance(data, bytes):
-        return data.decode("utf8")
-    return serializer.dumps(data)
+    # 签名算法
+    header = {'alg': 'HS256', "typ": "JWT"}
+    # 用于签名的密钥
+    key = GLOBAL_SECRET_KEY
+    exp = int(time.time()) + exp_seconds
+    payload = {"exp": exp}
+    payload.update(data)
+    # 待签名的数据负载
+    return jwt.encode(header=header, payload=data, key=key).decode("utf8")
 
 
-def decode_data(s: Union[str, bytes]) -> Any:
+def decode_data(s: str) -> dict:
     """数据解码"""
-    try:
-        return serializer.loads(s)
-    except:
-        return None
+    _, payload = jwt.decode(s, GLOBAL_SECRET_KEY)
+    if "exp" in payload:
+        exp = payload["exp"]
+        if time.time() > exp:
+            raise Exception("Token expired")
+    return payload
 
 
 def debug(*args, back=1):

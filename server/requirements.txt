@@ -4,10 +4,12 @@ Flask-PyMongo
 python-dotenv
 flask_mongoengine
 datetime
-itsdangerous
 pycryptodome
 requests
 oss2
 flask_socketio
 gevent-websocket
 redis[hiredis]
+flask_cors
+authlib==1.2.0
+eventlet

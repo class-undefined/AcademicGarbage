@@ -31,6 +31,8 @@ class User(mongodb.Document):
         """ 登录是否成功 """
         users: List[User] = User.objects(username=username)
         assert len(users) < 2, f"数据库异常, user: {username}, size: {len(users)}"
+        if len(users) == 0:
+            raise RequestError("账号或密码错误") 
         user = users[0]
         s = User.encode_password(password, user.salt)
         return (s == user.password, user)

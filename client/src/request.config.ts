@@ -2,5 +2,5 @@ export interface RequestConfig {
     baseUrl: string
 }
 export const requestConfig: RequestConfig = {
-    baseUrl: "http://192.168.1.110:5001/",
+    baseUrl: "http://127.0.0.1:5001/",
 }
