@@ -10,7 +10,7 @@ class Global():
         from .cache import Cache
         self.oss = OssManage()
         self.cache = Cache()
-        self.socketio = SocketIO(async_mode='eventlet')
+        self.socketio = SocketIO(async_mode='eventlet',cors_allowed_origins="*")
         self.mongodb = MongoEngine()
 
 

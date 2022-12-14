@@ -2,3 +2,5 @@ __pycache__/
 dist/
 oss.yaml
 node_modules/
+datasets/
+*.pt
