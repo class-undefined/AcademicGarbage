@@ -1,0 +1,1 @@
+ray up /home/class-undefined/code/AcademicGarbage/ray/config.yaml

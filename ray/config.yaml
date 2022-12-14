@@ -1,0 +1,45 @@
+# A unique identifier for the head node and workers of this cluster.
+cluster_name: ray # 集群节点名称
+
+provider:
+    type: local
+    head_ip: d995aaef55e8 # 头节点ip, 不知为何s04无法作为头结点启动
+    worker_ips: [] # 除头节点外集群列表 需要配置免密登录
+
+# How Ray will authenticate with newly launched nodes.
+auth:
+    ssh_user: class-undefined
+upscaling_speed: 1.0
+
+idle_timeout_minutes: 5
+
+file_mounts: {
+#    "/path1/on/remote/machine": "/path1/on/local/machine",
+#    "/path2/on/remote/machine": "/path2/on/local/machine",
+}
+cluster_synced_files: []
+
+file_mounts_sync_continuously: False
+rsync_exclude:
+    - "**/.git"
+    - "**/.git/**"
+
+rsync_filter:
+    - ".gitignore"
+
+initialization_commands: []
+
+setup_commands: 
+    - "source $HOME/.bashrc"
+
+head_setup_commands: []
+
+worker_setup_commands: []
+
+head_start_ray_commands:
+    - conda activate py390 && ray stop
+    - ulimit -c unlimited && ray start --head --port=6379 --autoscaling-config=~/ray_bootstrap_config.yaml
+
+worker_start_ray_commands:
+    - conda activate py390 && ray stop
+    - ray start --address=$RAY_HEAD_IP:6379

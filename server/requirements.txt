@@ -13,3 +13,4 @@ redis[hiredis]
 flask_cors
 authlib==1.2.0
 eventlet
+ray[default]==2.2.0
