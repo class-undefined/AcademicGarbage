@@ -18,5 +18,5 @@ class EnvConfig(object):
     OSS_CONFIG_YAML_PATH = "/home/class-undefined/code/AcademicGarbage/server/oss.yaml"
     # redis
     REDIS_HOST = "localhost"
-    REDIS_PORT = 6379
+    REDIS_PORT = 9736
     REDIS_DB = 0
