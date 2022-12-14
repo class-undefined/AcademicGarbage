@@ -7,7 +7,6 @@ namespace = "/"
 
 @socketio.on("connect", namespace=namespace)
 def connected():
-    debug(request.headers, "??")
     socketio.emit("connected", "ok", room=request.sid)
 
 

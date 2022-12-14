@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ref } from "vue"
+import { ref, onMounted } from "vue"
 import Title from "@comps/Title.vue"
 import { ElUpload, ElIcon, ElButton, UploadProps, UploadUserFile, ElDialog, UploadInstance } from "element-plus"
 import { Plus } from "@element-plus/icons-vue"
@@ -8,6 +8,7 @@ import { requestConfig } from "@/request.config";
 import { showLoadingToast, showSuccessToast, showFailToast } from "vant";
 import { ToastWrapperInstance } from "vant/lib/toast/types";
 import { useLoading } from "@/utils/base";
+import { getGateWay } from "@/socket";
 const photos = ref<UploadUserFile[]>([])
 const dialogImageUrl = ref("")
 const dialogVisible = ref(false)
@@ -50,6 +51,10 @@ const headers = {
     Token: getToken()
 }
 
+onMounted(() => {
+    const gateway = getGateWay()
+    gateway.connect()
+})
 
 </script>
 
