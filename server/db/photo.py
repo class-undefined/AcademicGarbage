@@ -26,7 +26,8 @@ class Photo(mongodb.Document):
             "update_time": self.update_time.strftime("%Y-%m-%d %H:%M"),
             "accuracy": self.accuracy,
             "helmets_count": self.helmets_count,
-            "userid": self.userid
+            "userid": self.userid,
+            "id": self.get_id()
         }
 
     def get_id(self) -> str:

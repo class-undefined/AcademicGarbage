@@ -1,4 +1,5 @@
 export interface IPhoto {
+    id: string
     userid: string
     original_url: string
     processed_url: string
@@ -9,6 +10,9 @@ export interface IPhoto {
 }
 
 export class Photo implements IPhoto {
+    /** 图片id */
+    public id: string
+
     /** 用户id */
     public userid: string
 
@@ -30,6 +34,7 @@ export class Photo implements IPhoto {
     /** 安全帽 */
     public helmets_count: string
     constructor(photo: IPhoto) {
+        this.id = photo.id
         this.userid = photo.userid
         this.original_url = photo.original_url
         this.processed_url = photo.processed_url

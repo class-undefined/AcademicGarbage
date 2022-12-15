@@ -9,6 +9,7 @@ import { showLoadingToast, showSuccessToast, showFailToast } from "vant";
 import { ToastWrapperInstance } from "vant/lib/toast/types";
 import { useLoading } from "@/utils/base";
 import { getGateWay } from "@/socket";
+import IdentifyResultList from "@/components/IdentifyResultList.vue";
 const photos = ref<UploadUserFile[]>([])
 const disableUploadBtn = ref(true)
 const dialogImageUrl = ref("")
@@ -58,10 +59,7 @@ const headers = {
     Token: getToken()
 }
 
-onMounted(() => {
-    const gateway = getGateWay()
-    gateway.connect()
-})
+getGateWay()
 
 </script>
 
@@ -85,6 +83,7 @@ onMounted(() => {
                 :disabled="disableUploadBtn">上传并识别</van-button>
         </div>
         <el-divider />
+        <identify-result-list />
         <van-image-preview v-model:show="dialogVisible" :images="[dialogImageUrl]" />
 
     </div>
