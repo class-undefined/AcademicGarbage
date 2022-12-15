@@ -41,7 +41,7 @@ class Cache():
             return None
         pair = json.loads(s)
         # 就目前而言, 如果是基本类型, 那么json已自动转换了数据类型, 所以暂时无需手写转换
-        return pair[0]
+        return pair[1]
 
     def __generate_key(self, group: str, key: str) -> str:
         return f"{group}.{key}"
@@ -65,5 +65,5 @@ class Cache():
         """获取数据"""
         key = self.__generate_key(group, key)
         s = self.redis.get(key)
-        pair = self.__unwrap_variable_value(s)
-        return pair[1]
+        value = self.__unwrap_variable_value(s)
+        return value
