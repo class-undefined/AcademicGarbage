@@ -16,17 +16,6 @@ const routes: Array<RouteRecordRaw> = [
         },
     },
     {
-        path: "/self",
-        name: "我",
-        component: HomeView,
-        meta: {
-            navbar: true,
-            title: "我",
-            icon: "https://fastly.jsdelivr.net/npm/@vant/assets/icon-demo.png",
-            auth: true,
-        },
-    },
-    {
         path: "/login",
         name: "login",
         component: LoginView,
