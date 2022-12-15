@@ -18,22 +18,28 @@ export class SocketIO {
      * @returns 
      */
     public connect() {
-        if (this.socket) return
-        this.socket = io(requestConfig.ws)
-        const loading = showLoadingToast({message: "建立会话中", duration: 0})
-        this.socket.on("connected", () => {
-            this.socket!.emit("bind", getToken())
-        })
-        this.socket.on("binded", () => {
-            loading.close()
-            showSuccessToast("会话已建立")
+        if (this.socket) return Promise.resolve(this)
+        return new Promise<SocketIO>((resolve, reject) => {
+            this.socket = io(requestConfig.ws)
+            const loading = showLoadingToast({message: "建立会话中", duration: 0})
+            this.socket.on("connected", () => {
+                this.socket!.emit("bind", getToken())
+            })
+            this.socket.on("binded", () => {
+                loading.close()
+                showSuccessToast("会话已建立")
+                resolve(this)
+            })
+            this.socket.on("connect_error", (e) => {
+                reject(e)
+            })
         })
     }
 
     /** 监听事件 */
     public on<Evt extends keyof EventsHandle>(event: Evt, callback: EventsHandle[Evt]) {
         // @ts-ignore
-        this.socket?.on(event, callback)
+        this.socket.on(event, callback)
     }
 
 }
@@ -41,4 +47,4 @@ export class SocketIO {
 const __gateway = new SocketIO()
 
 /**获得包装后的Socket实例 */
-export const getGateWay = () => __gateway
+export const getGateWay = () => __gateway.connect()
