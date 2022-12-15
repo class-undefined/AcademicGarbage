@@ -68,8 +68,6 @@ def parse_identify_result(workspace: str):
             if len(rsts) != 0:
                 rst_path = os.path.join(path, rsts[0]) # 检测结果文件
                 result = parse_identify_result_txt(rst_path)
-    if process_img is not None: # 转为二进制数据
-        process_img = open(process_img, "rb").read()
     return {"filename": filename, "process_img": process_img, "result": result}
 
 

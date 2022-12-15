@@ -35,11 +35,11 @@ def identify_result():
     user_id = body["user_id"]
     photo_id = body["photo_id"] # 处理的图像id
     filename = body["filename"]
-    process_img: bytes = body["process_img"] # 二进制数据
+    process_img = body["process_img"] # 二进制数据
     result = json.loads(body["result"]) # 识别结果
     sid = get_cache().pull("user", user_id) # 用户的sid
     debug("sid", sid, "user_id", user_id)
-    processed_url = get_oss().upload(f"{user_id}/processed_{filename}", process_img)
+    processed_url = get_oss().upload(f"{user_id}/processed_{filename}", open(process_img, "rb"))
     photo: Photo = Photo.query_by_id(id=photo_id)
     if photo is None or process_img is None or result is None or len(result) == 0:
         data =  {"photo_id": photo_id, "data": None}
