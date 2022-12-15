@@ -16,6 +16,17 @@ const routes: Array<RouteRecordRaw> = [
         },
     },
     {
+        path: "/",
+        name: "home",
+        component: HomeView,
+        meta: {
+            navbar: true, // 是否显示导航栏
+            title: "历史记录",
+            icon: "clock-o", // 图标
+            auth: true, // 需要验证
+        },
+    },
+    {
         path: "/login",
         name: "login",
         component: LoginView,
