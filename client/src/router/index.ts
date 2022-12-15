@@ -2,6 +2,7 @@ import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router"
 import HomeView from "@/views/HomeView.vue"
 import RegisterView from "@/views/RegisterView.vue"
 import LoginView from "@/views/LoginView.vue"
+import HistoryView from "@/views/HistoryView/index.vue"
 import { useGlobalStore } from "@/store/global"
 const routes: Array<RouteRecordRaw> = [
     {
@@ -16,9 +17,9 @@ const routes: Array<RouteRecordRaw> = [
         },
     },
     {
-        path: "/",
-        name: "home",
-        component: HomeView,
+        path: "/history",
+        name: "history",
+        component: HistoryView,
         meta: {
             navbar: true, // 是否显示导航栏
             title: "历史记录",
