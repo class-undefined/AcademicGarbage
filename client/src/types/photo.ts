@@ -5,8 +5,8 @@ export interface IPhoto {
     processed_url: string
     create_time: Date
     update_time: Date
-    accuracy: string
-    helmets_count: string
+    accuracy: number
+    helmets_count: number
 }
 
 export class Photo implements IPhoto {
@@ -29,10 +29,10 @@ export class Photo implements IPhoto {
     public update_time: Date
 
     /** 准确率 */
-    public accuracy: string
+    public accuracy: number
 
     /** 安全帽 */
-    public helmets_count: string
+    public helmets_count: number
     constructor(photo: IPhoto) {
         this.id = photo.id
         this.userid = photo.userid

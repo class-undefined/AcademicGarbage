@@ -65,27 +65,31 @@ getGateWay()
 
 <template>
     <div class="home-view">
-        <Title value="安全帽识别" :padding="[0, 0]" />
-        <div class="uploader">
-            <div style="max-width: 316px;">
-                <el-upload class="uploader-instance" :on-change="onChange" :on-success="onSuccess" :on-error="onError"
-                    :headers="headers" name="image" :v-model:file-list="photos" :action="action"
-                    list-type="picture-card" :auto-upload="false" ref="uploadRef" :on-preview="handlePictureCardPreview"
-                    :on-remove="onRemove">
-                    <el-icon>
-                        <Plus />
-                    </el-icon>
-                </el-upload>
+        <div>
+            <Title value="安全帽识别" :padding="[0, 0]" />
+            <div class="uploader">
+                <div style="max-width: 316px;">
+                    <el-upload class="uploader-instance" :on-change="onChange" :on-success="onSuccess"
+                        :on-error="onError" :headers="headers" name="image" :v-model:file-list="photos" :action="action"
+                        list-type="picture-card" :auto-upload="false" ref="uploadRef"
+                        :on-preview="handlePictureCardPreview" :on-remove="onRemove">
+                        <el-icon>
+                            <Plus />
+                        </el-icon>
+                    </el-upload>
+                </div>
+            </div>
+            <div class="upload-btn-box">
+                <van-button block type="primary" @click="submit" :loading="loading"
+                    :disabled="disableUploadBtn">上传并识别</van-button>
             </div>
         </div>
-        <div class="upload-btn-box">
-            <van-button block type="primary" @click="submit" :loading="loading"
-                :disabled="disableUploadBtn">上传并识别</van-button>
-        </div>
         <el-divider />
-        <identify-result-list />
+        <div class="images-list">
+            <Title value="识别结果" :padding="[0, 0]" />
+            <identify-result-list />
+        </div>
         <van-image-preview v-model:show="dialogVisible" :images="[dialogImageUrl]" />
-
     </div>
 </template>
 
@@ -111,5 +115,10 @@ getGateWay()
 .upload-btn-box {
     height: 80px;
     padding-top: 20px;
+}
+
+.images-list {
+    height: calc(100vh - 404px);
+    overflow: scroll;
 }
 </style>
