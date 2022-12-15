@@ -68,13 +68,18 @@ def history(data: Union[User, None]):
 @user_auth_guard
 @interceptor()
 def add_photo(data: Union[User, None]):
+    from distributed.execute import wrap_identify
+    
     user = data
     if "image" not in request.files:
         return Response.error("请选择要上传的图片！")
-    image = request.files["images"]
+    image = request.files["image"]
+    print(image)
     if image.filename == "":
         return Response.error("请选择要上传的图片！")
     filename = user.get_id() + "/" + image.filename
     url = get_oss().upload(filename=filename, data=image.stream)
-    user.add_photo(url=url)
+    photo = user.add_photo(url=url)
+    wrap_identify(user_id=user.get_id(), photo_id=photo.get_id(), original_url=photo.original_url)
+    
     return Response.ok()

@@ -71,7 +71,7 @@ class User(mongodb.Document):
     def get_id(self) -> str:
         return str(self.id)
 
-    def add_photo(self, url: str):
+    def add_photo(self, url: str) -> "Photo":
         """增加图片"""
         if not isinstance(url, str):
             raise RequestError("增加图片数据异常")
@@ -83,6 +83,7 @@ class User(mongodb.Document):
             raise RequestError("保存图片失败")
         self.photos.append(photo)
         self.update(push__photos=photo)
+        return photo
 
     def generate_token(self) -> Tuple[None, str]:
         token = {"id": self.get_id()}

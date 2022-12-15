@@ -1,10 +1,10 @@
 import functools
+import traceback
 from flask import request
 from common.error import RequestError
-from common.package import decode_data, encode_data
+from common.package import decode_data, encode_data, debug
 from common.response import Response
 from services.parsers import user_parser
-
 
 def interceptor():
     """ 异常拦截器, 异常自动包装成Response, 返回Response则调用to_response """
@@ -19,6 +19,9 @@ def interceptor():
                 return route_func(*args, **kwargs)
             except RequestError as e:
                 return e.response.to_response()
+            except Exception as e:
+                traceback.print_exc()
+                raise e
         return wrapper
     return handle
     

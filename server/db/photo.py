@@ -1,7 +1,7 @@
 from db import mongodb
 
 import datetime
-from typing import Dict, Tuple
+from typing import Dict, Tuple, Union
 
 from common import get_oss
 
@@ -22,18 +22,22 @@ class Photo(mongodb.Document):
         return {
             "original_url": self.original_url,
             "processed_url": self.processed_url,
-            "create_time": self.create_time,
-            "update_time": self.update_time,
+            "create_time": self.create_time.strftime("%Y-%m-%d %H:%M"),
+            "update_time": self.update_time.strftime("%Y-%m-%d %H:%M"),
             "accuracy": self.accuracy,
             "helmets_count": self.helmets_count,
             "userid": self.userid
         }
 
+    def get_id(self) -> str:
+        return str(self.id)
+
     def __str__(self) -> str:
         return str(self.to_dict())
 
+
     @staticmethod
-    def query_by_id(id: str) -> Tuple["Photo", None]:
+    def query_by_id(id: str) -> Union["Photo", None]:
         photos = Photo.objects(id=id)
         if photos is None:
             return None
