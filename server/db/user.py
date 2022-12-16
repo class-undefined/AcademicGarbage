@@ -5,7 +5,7 @@ from db import mongodb
 from db.photo import Photo
 from common.package import encode_data, random_string, encode_md5_from_string
 from common import get_socketio, get_cache, debug
-
+import datetime
 
 class User(mongodb.Document):
     # 账户
@@ -112,6 +112,28 @@ class User(mongodb.Document):
         if sid is None: # 如果没有sid, 说明已过期, 不进行发送
             return
         get_socketio().emit("message", val, room=sid)
+
+    def query_by_create_range(self, start_date: datetime.date, end_date: datetime.date):
+        """查询指定日期范围创建的图片"""
+        photos = self.photos
+        rst: List["Photo"] = []
+        for photo in photos:
+            if photo.create_time >= start_date and photo.create_time <= end_date:
+                rst.append(photo)
+        return rst
+
+
+    def get_create_photos_by_today(self):
+        """查询今天创建的图片"""
+        today = datetime.date.today()
+        start_date = datetime.datetime.combine(today, datetime.time.min)
+        end_date = datetime.datetime.combine(today, datetime.time.max)
+        return self.query_by_create_range(start_date, end_date)
+
+    def get_photos(self) -> List["Photo"]:
+        """获取所有图片"""
+        return self.photos
+
 
     def __str__(self) -> str:
         return str(self.to_dict())

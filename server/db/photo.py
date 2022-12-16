@@ -1,7 +1,7 @@
 from db import mongodb
 
 import datetime
-from typing import Dict, Tuple, Union
+from typing import Dict, List, Tuple, Union
 
 from common import get_oss
 
@@ -50,3 +50,9 @@ class Photo(mongodb.Document):
         path = f"{userid}/{filename}"
         original_url = get_oss().upload(path, stream)
         return Photo(original_url=original_url, userid=userid)
+
+    @staticmethod
+    def query_by_create_range(start_date: datetime.date, end_date: datetime.date, user_id: Union[str, None]=None) -> List["Photo"]:
+        """查询指定日期范围创建的图片"""
+        results = Photo.objects(create_time__gte=start_date, create_time__lte=end_date, userid=user_id)
+        return results
