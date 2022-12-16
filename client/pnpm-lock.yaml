@@ -7,6 +7,7 @@ specifiers:
   '@vitejs/plugin-vue': ^3.2.0
   '@vueuse/core': ^9.6.0
   axios: ^1.2.0
+  echarts: ^5.4.1
   element-plus: ^2.2.26
   js-cookie: ^3.0.1
   pinia: ^2.0.27
@@ -26,6 +27,7 @@ dependencies:
   '@element-plus/icons-vue': 2.0.10_vue@3.2.45
   '@vueuse/core': 9.6.0_vue@3.2.45
   axios: 1.2.0
+  echarts: 5.4.1
   element-plus: 2.2.26_vue@3.2.45
   js-cookie: 3.0.1
   pinia: 2.0.27_mgnvym7yiazkylwwogi5r767ue
@@ -447,6 +449,13 @@ packages:
   /delayed-stream/1.0.0:
     resolution: {integrity: sha512-ZySD7Nf91aLB0RxL4KGrKHBXl7Eds1DAmEdcoVawXnLD7SDhpNgtuII2aAkg7a7QS41jxPSZ17p4VdGnMHk3MQ==}
     engines: {node: '>=0.4.0'}
+    dev: false
+
+  /echarts/5.4.1:
+    resolution: {integrity: sha512-9ltS3M2JB0w2EhcYjCdmtrJ+6haZcW6acBolMGIuf01Hql1yrIV01L1aRj7jsaaIULJslEP9Z3vKlEmnJaWJVQ==}
+    dependencies:
+      tslib: 2.3.0
+      zrender: 5.4.1
     dev: false
 
   /element-plus/2.2.26_vue@3.2.45:
@@ -1090,6 +1099,10 @@ packages:
     dependencies:
       is-number: 7.0.0
 
+  /tslib/2.3.0:
+    resolution: {integrity: sha512-N82ooyxVNm6h1riLCoyS9e3fuJ3AMG2zIZs2Gd1ATcSFjSA23Q0fzjjZeh0jbJvWVDZ0cJT8yaNNaaXHzueNjg==}
+    dev: false
+
   /typescript/4.9.3:
     resolution: {integrity: sha512-CIfGzTelbKNEnLpLdGFgdyKhG23CKdKgQPOBc+OUNrkJ2vr+KSzsSV5kq5iWhEQbok+quxgGzrAtGWCyU7tHnA==}
     engines: {node: '>=4.2.0'}
@@ -1331,4 +1344,10 @@ packages:
   /xmlhttprequest-ssl/2.0.0:
     resolution: {integrity: sha512-QKxVRxiRACQcVuQEYFsI1hhkrMlrXHPegbbd1yn9UHOmRxY+si12nQYzri3vbzt8VdTTRviqcKxcyllFas5z2A==}
     engines: {node: '>=0.4.0'}
+    dev: false
+
+  /zrender/5.4.1:
+    resolution: {integrity: sha512-M4Z05BHWtajY2241EmMPHglDQAJ1UyHQcYsxDNzD9XLSkPDqMq4bB28v9Pb4mvHnVQ0GxyTklZ/69xCFP6RXBA==}
+    dependencies:
+      tslib: 2.3.0
     dev: false
