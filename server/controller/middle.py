@@ -42,7 +42,8 @@ def identify_result():
     processed_url = get_oss().upload(f"{user_id}/processed_{filename}", open(process_img, "rb"))
     photo: Photo = Photo.query_by_id(id=photo_id)
     if photo is None or process_img is None or result is None or len(result) == 0:
-        data =  {"photo_id": photo_id, "data": None}
+        photo = photo.to_dict() if photo is not None else None
+        data =  {"photo_id": photo_id, "data": photo}
         response = Response.error(data=data)
         get_socketio().emit("accept_identify_rst", response.to_dict(), room=sid)
         return response

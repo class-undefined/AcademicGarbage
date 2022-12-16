@@ -91,7 +91,6 @@ def upload(user_id: str, photo_id: str, original_url: str, envs: Union[Dict, Non
     """userid: 需要通知的用户id, photo_id: 处理的图片id, original_url: 图片url地址"""
     import requests
     import json
-    print("ray出手了")
     url = f"http://172.17.0.5:5001/middle/identify_result"
     identify_result = identify(original_url, envs=envs)
     identify_result["result"] = json.dumps(identify_result["result"])
@@ -105,12 +104,12 @@ def upload(user_id: str, photo_id: str, original_url: str, envs: Union[Dict, Non
 @ray.remote(num_cpus=1, runtime_env={"env_vars": config})
 def identify_async(user_id: str, photo_id: str, original_url: str):
     import asyncio
-    asyncio.run(upload(user_id, photo_id, original_url))
+    asyncio.run(upload(user_id, photo_id, original_url, config))
 
 def wrap_identify(user_id: str, photo_id: str, original_url: str):
     import multiprocessing
     def worker():
-        upload(user_id, photo_id, original_url)
+        upload(user_id, photo_id, original_url, config)
     p = multiprocessing.Process(target=worker)
     p.start()
     # identify_async.remote(user_id, photo_id, original_url)

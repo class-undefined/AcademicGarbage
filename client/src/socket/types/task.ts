@@ -2,7 +2,7 @@ import { Photo } from "@/types/photo"
 import { Response } from "@/utils/api/response/type"
 export type IdentifyResult = Response<{
     data: Photo,
-    photo_id: string
+    photo_id: string,
 }>
 
 

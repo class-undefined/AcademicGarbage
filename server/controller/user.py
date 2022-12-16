@@ -74,7 +74,6 @@ def add_photo(data: Union[User, None]):
     if "image" not in request.files:
         return Response.error("请选择要上传的图片！")
     image = request.files["image"]
-    print(image)
     if image.filename == "":
         return Response.error("请选择要上传的图片！")
     filename = user.get_id() + "/" + image.filename
