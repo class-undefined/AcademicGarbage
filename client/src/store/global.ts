@@ -1,13 +1,14 @@
-import { login, auth, register } from "@/api/user"
+import { login, auth, register, getPhotos } from "@/api/user"
 import { User } from "@/types/user"
 import { removeToken, setToken } from "@/utils/api/auth/auth"
 import { defineStore } from "pinia"
 import { useRouter } from "vue-router"
 import { showFailToast, showLoadingToast } from "vant"
+import { Photo } from "@/types/photo"
 export const useGlobalStore = defineStore("global", {
     state: () => {
         return {
-            user: null as null | User,
+            user: null as null | User
         }
     },
     actions: {
@@ -24,7 +25,7 @@ export const useGlobalStore = defineStore("global", {
                     duration: 3000
                 })
             }
-            return register(username, password).then(({data}) => {
+            return register(username, password).then(({ data }) => {
                 this.user = new User(data.user)
                 setToken(data.token)
             })
@@ -47,5 +48,9 @@ export const useGlobalStore = defineStore("global", {
             removeToken()
             useRouter().replace("/login")
         },
+        async refreshPhotos() {
+            if (!this.user) throw "user不存在"
+            return this.user.refreshPhotos()
+        }
     },
 })

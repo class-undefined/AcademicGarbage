@@ -32,7 +32,6 @@ export class User implements IUser {
     /** 今日平均识别率 */
     public todayAccuracy() {
         const photos = this.getTodayPhotos()
-        console.log(photos)
         if (photos.length === 0) return 0
         let accuracy = 0
         for (const photo of photos) accuracy += photo.accuracy
