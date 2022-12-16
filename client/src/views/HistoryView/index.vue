@@ -2,6 +2,7 @@
 import { ref, onMounted } from "vue"
 import { useGlobalStore } from '@/store/global';
 import Panel from "@/views/HistoryView/Panel.vue"
+import TodayLine from "@/views/HistoryView/TodayLine/index.vue"
 import Title from "@comps/Title.vue"
 //
 
@@ -11,11 +12,18 @@ import Title from "@comps/Title.vue"
     <div class="history-view">
         <Title value="仪表板" :padding="[0, 0]" />
         <panel />
+        <Title value="仪表板" :padding="[0, 0]" />
+        <today-line class="today-line" />
     </div>
 </template>
 
 <style lang="scss">
 .history-view {
     padding: 10px 20px;
+}
+
+.today-line {
+    width: 100%;
+    height: 350px;
 }
 </style>
