@@ -42,10 +42,15 @@ export class Photo implements IPhoto {
         this.update_time = new Date(photo.update_time)
         this.accuracy = photo.accuracy
         this.helmets_count = photo.helmets_count
-        console.log(this)
     }
 
-    // public isToday() {
-    //     return this.create_time
-    // }
+    /** 是否为今天创建的图片 */
+    public isTodayCreated() {
+        const today = new Date();
+        return (
+            this.create_time.getFullYear() === today.getFullYear() &&
+            this.create_time.getMonth() === today.getMonth() &&
+            this.create_time.getDate() === today.getDate()
+        )
+    }
 }
