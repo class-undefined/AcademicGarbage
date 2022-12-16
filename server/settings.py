@@ -1,9 +1,14 @@
 # https://dormousehole.readthedocs.io/en/latest/config.html
 class EnvConfig(object):
+    import pytz
     # mongo配置
-    MONGODB_DB = "bins"
-    MONGODB_HOST = "localhost"
-    MONGODB_PORT = 27017
+    MONGODB_SETTINGS = {
+        'db': 'bins',
+        'host': 'localhost',
+        'port': 27017,
+        'tz_aware': True,
+        'tzinfo': pytz.timezone('Asia/Shanghai')
+    }
     AUTO_SALT = "c90a!DQ.poi@"
     AUTO_SECRET_KEY = "jiocasiFHIKS9231534213IKJCAISO8"
     # token时效

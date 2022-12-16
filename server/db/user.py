@@ -100,9 +100,12 @@ class User(mongodb.Document):
 
     def to_vo(self) -> Dict:
         """转换为vo数据, 避免泄漏加密信息"""
+        photos = []
+        for photo in self.photos:
+            photos.append(photo.to_dict())
         return {
             "username": self.username,
-            "photos": self.photos,
+            "photos": photos,
         }
 
     def send_msg(self, val: Any):

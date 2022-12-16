@@ -38,9 +38,14 @@ export class Photo implements IPhoto {
         this.userid = photo.userid
         this.original_url = photo.original_url
         this.processed_url = photo.processed_url
-        this.create_time = photo.create_time
-        this.update_time = photo.update_time
+        this.create_time = new Date(photo.create_time)
+        this.update_time = new Date(photo.update_time)
         this.accuracy = photo.accuracy
         this.helmets_count = photo.helmets_count
+        console.log(this)
     }
+
+    // public isToday() {
+    //     return this.create_time
+    // }
 }
