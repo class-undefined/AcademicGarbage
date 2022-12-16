@@ -12,8 +12,11 @@ import Title from "@comps/Title.vue"
     <div class="history-view">
         <Title value="仪表板" :padding="[0, 0]" />
         <panel />
-        <Title value="仪表板" :padding="[0, 0]" />
+        <el-divider />
+        <Title value="频率" :padding="[0, 0]" />
         <today-line class="today-line" />
+        <el-divider />
+        <Title value="历史记录" :padding="[0, 0]" />
     </div>
 </template>
 
