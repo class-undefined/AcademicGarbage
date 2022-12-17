@@ -9,6 +9,7 @@ class EnvConfig(object):
         'tz_aware': True,
         'tzinfo': pytz.timezone('Asia/Shanghai')
     }
+    WORK_SPACE = "/Users/class-undefined/code/projects/AcademicGarbage"
     AUTO_SALT = "c90a!DQ.poi@"
     AUTO_SECRET_KEY = "jiocasiFHIKS9231534213IKJCAISO8"
     # token时效
@@ -20,7 +21,7 @@ class EnvConfig(object):
     # 是否开启debug模块
     DEBUG = False
     # oss配置文件路径
-    OSS_CONFIG_YAML_PATH = "/home/class-undefined/code/AcademicGarbage/server/oss.yaml"
+    OSS_CONFIG_YAML_PATH = "server/oss.yaml"
     # redis
     REDIS_HOST = "localhost"
     REDIS_PORT = 9736

@@ -18,6 +18,8 @@ def user_parser(headers: Dict):
         debug("token中无id属性")
         return None
     users = User.objects(id=user_id)
+    if len(users) == 0:
+        return None
     assert len(users) == 1, f"id异常, id: {user_id}, 包含多个用户"
     user = users[0]
     return user

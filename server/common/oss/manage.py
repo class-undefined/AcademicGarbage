@@ -16,8 +16,9 @@ class OssManage():
 
     def __read_oss_config(self):
         import yaml
+        workspace = app.config["WORK_SPACE"]
         config_path = app.config["OSS_CONFIG_YAML_PATH"]
-        stream = open(config_path, "rb")
+        stream = open(f"{workspace}/{config_path}", "rb")
         return yaml.load(stream, yaml.SafeLoader)
 
     def get_object(self, filename: str) -> Any:

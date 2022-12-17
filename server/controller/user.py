@@ -18,7 +18,7 @@ def register():
     if "username" not in body or "password" not in body:
         return Response().error(message="缺少账户或密码!")
     user = User.register(**body)
-    return Response.ok(message="注册成功", data=user.to_vo())
+    return Response.ok(message="注册成功", data={"user": user.to_vo()})
 
 
 @user_blue.route("/login", methods=["POST"])
@@ -69,7 +69,7 @@ def history(data: Union[User, None]):
 @interceptor()
 def add_photo(data: Union[User, None]):
     from distributed.execute import wrap_identify
-    
+
     user = data
     if "image" not in request.files:
         return Response.error("请选择要上传的图片！")
@@ -79,6 +79,7 @@ def add_photo(data: Union[User, None]):
     filename = user.get_id() + "/" + image.filename
     url = get_oss().upload(filename=filename, data=image.stream)
     photo = user.add_photo(url=url)
-    wrap_identify(user_id=user.get_id(), photo_id=photo.get_id(), original_url=photo.original_url)
-    
+    wrap_identify(user_id=user.get_id(), photo_id=photo.get_id(),
+                  original_url=photo.original_url)
+
     return Response.ok()
