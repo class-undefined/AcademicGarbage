@@ -1,10 +1,9 @@
 <script lang="ts" setup>
-import { ref, onMounted } from "vue"
-import { useGlobalStore } from '@/store/global';
 import Panel from "@/views/HistoryView/Panel.vue"
 import TodayLine from "@/views/HistoryView/TodayLine/index.vue"
 import Title from "@comps/Title.vue"
-//
+import History from "./History.vue";
+
 
 </script>
 
@@ -17,6 +16,7 @@ import Title from "@comps/Title.vue"
         <today-line class="today-line" />
         <el-divider />
         <Title value="历史记录" :padding="[0, 0]" />
+        <history />
     </div>
 </template>
 
