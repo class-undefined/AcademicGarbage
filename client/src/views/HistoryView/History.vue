@@ -20,14 +20,17 @@ const handleClick = (photo: Photo) => {
         <van-cell @click="handleClick(photo)" center is-link value="查看结果" :label="photo.create_time.toDateString()"
             v-for="photo in photos" :key="photo.id">
             <template #title>
-                <!-- <span class="custom-title">单元格</span> -->
+                <span class="custom-title">count: </span>
                 <van-tag type="primary">{{ photo.helmets_count }}</van-tag>
-                <van-tag type="success">{{ photo.accuracy }}</van-tag>
+                <span v-if="photo.accuracy" class="custom-title"> rate: </span>
+                <van-tag v-if="photo.accuracy" type="success">{{ photo.accuracy.toFixed(2) }}</van-tag>
             </template>
         </van-cell>
     </van-list>
 </template>
 
 <style lang="scss">
-//
+.custom-title {
+    font-size: 12px;
+}
 </style>
