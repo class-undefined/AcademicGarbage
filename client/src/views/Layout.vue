@@ -26,6 +26,7 @@ const tabHeight = computed(() => {
     if (current.value.meta?.navbar) return 50
     return 0
 })
+console.log(current.value.path, tabs)
 </script>
 
 <template>
@@ -36,7 +37,8 @@ const tabHeight = computed(() => {
     </van-config-provider>
     <div>
         <van-tabbar v-if="current.meta?.navbar" v-model="current.path">
-            <van-tabbar-item v-for="tab in tabs" :key="tab.title" @click="handleClick(tab.path)" :icon="tab.icon">
+            <van-tabbar-item :name="tab.path" v-for="tab in tabs" :key="tab.title" @click="handleClick(tab.path)"
+                :icon="tab.icon">
                 {{ tab.title }}
             </van-tabbar-item>
         </van-tabbar>
