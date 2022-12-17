@@ -17,7 +17,8 @@ const handleClick = (photo: Photo) => {
 
 <template>
     <van-list v-model:loading="loading" :finished="!loading" finished-text="没有更多了">
-        <van-cell @click="handleClick(photo)" center is-link value="查看结果" :label="photo.create_time.toDateString()"
+        <van-cell @click="handleClick(photo)" center is-link value="查看结果"
+            :label="photo.create_time.toLocaleDateString() + ' ' + photo.create_time.toLocaleTimeString()"
             v-for="photo in photos" :key="photo.id">
             <template #title>
                 <span class="custom-title">count: </span>
