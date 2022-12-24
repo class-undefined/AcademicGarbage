@@ -4,7 +4,11 @@ import { Photo } from "@/types/photo";
 import { useGlobalStore } from "@/store/global";
 import { showImagePreview, showNotify } from 'vant';
 const gloabl = useGlobalStore()
-const photos: ComputedRef<Photo[]> = computed(() => gloabl.user?.photos ?? [])
+const photos: ComputedRef<Photo[]> = computed(() => {
+    if (!gloabl.user?.photos) return []
+    gloabl.user.photos.sort((s, t) => Date.parse(t.create_time.toString()) - Date.parse(s.create_time.toString()))
+    return gloabl.user.photos
+})
 const loading = ref(false)
 const handleClick = (photo: Photo) => {
     if (photo.processed_url) showImagePreview([photo.processed_url])

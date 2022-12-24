@@ -34,21 +34,10 @@ const toRegister = () => {
     <div class="login-form">
         <van-form @submit="onSubmit">
             <van-cell-group inset>
-                <van-field
-                    v-model="username"
-                    name="用户名"
-                    label="用户名"
-                    placeholder="用户名"
-                    :rules="[{ required: true, message: '请填写用户名' }]"
-                />
-                <van-field
-                    v-model="password"
-                    type="password"
-                    name="密码"
-                    label="密码"
-                    placeholder="密码"
-                    :rules="[{ required: true, message: '请填写密码' }]"
-                />
+                <van-field v-model="username" name="用户名" label="用户名" placeholder="用户名"
+                    :rules="[{ required: true, message: '请填写用户名' }]" />
+                <van-field v-model="password" type="password" name="密码" label="密码" placeholder="密码"
+                    :rules="[{ required: true, message: '请填写密码' }]" />
             </van-cell-group>
             <div style="text-align: right;margin: 16px;">
                 <span class="register-btn" @click="toRegister">注册账号</span>
@@ -69,6 +58,7 @@ const toRegister = () => {
     justify-content: center;
     height: 100vh;
 }
+
 .register-btn {
     font-size: 12px;
     color: #f5f5f5;

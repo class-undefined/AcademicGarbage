@@ -9,7 +9,7 @@ class EnvConfig(object):
         'tz_aware': True,
         'tzinfo': pytz.timezone('Asia/Shanghai')
     }
-    WORK_SPACE = "/home/class-undefined/code/AcademicGarbage"
+    WORK_SPACE = "/Users/class-undefined/code/projects/AcademicGarbage"
     AUTO_SALT = "c90a!DQ.poi@"
     AUTO_SECRET_KEY = "jiocasiFHIKS9231534213IKJCAISO8"
     # token时效

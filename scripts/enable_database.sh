@@ -1,5 +1,5 @@
 # 开启mongodb
-workspace=/home/class-undefined/code/AcademicGarbage
+workspace=/Users/class-undefined/code/projects/AcademicGarbage
 mongod --config $workspace/scripts/res/mongod.conf --fork
 
 # 开启redis

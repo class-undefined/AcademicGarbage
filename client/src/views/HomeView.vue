@@ -17,9 +17,7 @@ const dialogVisible = ref(false)
 const action = requestConfig.baseUrl + "user/add_photo"
 const uploadRef = ref<UploadInstance>()
 const [loading, setLoading] = useLoading()
-const afterRead = () => {
-    // 此时可以自行将文件上传至服务器
-}
+
 
 const handlePictureCardPreview: UploadProps["onPreview"] = uploadFile => {
     dialogImageUrl.value = uploadFile.url!
@@ -80,8 +78,8 @@ getGateWay()
                 </div>
             </div>
             <div class="upload-btn-box">
-                <van-button block type="primary" @click="submit" :loading="loading"
-                    :disabled="disableUploadBtn">上传并识别</van-button>
+                <van-button block type="primary" @click="submit" :loading="loading" :disabled="disableUploadBtn">上传并识别
+                </van-button>
             </div>
         </div>
         <el-divider />
