@@ -1,0 +1,5 @@
+# 阿里云OSS, 如需使用, 请填写自己的配置
+access_key_id: <your_access_key_id>
+access_key_secret: <your_access_key_secret>
+endpoint: <your_endpoint>
+bucket: <your_bucket>
